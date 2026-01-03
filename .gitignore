@@ -1,0 +1,12 @@
+node_modules
+backend/node_modules
+frontend/node_modules
+backend/db.sqlite
+backend/db.sqlite-journal
+backend/db.sqlite-shm
+backend/db.sqlite-wal
+backend/db.sqlite-lock
+backend/db.sqlite-trace
+backend/db.sqlite-trace-lock
+backend/db.sqlite-trace-shm
+backend/db.sqlite-trace-wal 
