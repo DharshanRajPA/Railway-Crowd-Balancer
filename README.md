@@ -2,6 +2,17 @@
 
 A real-time crowd density monitoring and redirection system for Indian railway platforms. This system uses sensor data to track platform occupancy, calculate density, and automatically redirect passengers to safer platforms when overcrowding is detected.
 
+## Screen Shots
+
+DashBoard
+<img width="987" height="979" alt="image" src="https://github.com/user-attachments/assets/a831b697-f1f3-40b1-9f2b-9d4971cee4ca" />
+
+Admin Authentication
+<img width="994" height="959" alt="image" src="https://github.com/user-attachments/assets/c9844249-db19-483d-ae26-1c861b878f9e" />
+
+Admin Panel
+<img width="973" height="972" alt="image" src="https://github.com/user-attachments/assets/8784b0ba-8aa0-4637-9bbe-eec8ede640ad" />
+
 ## 🚀 Quick Start
 
 ### Prerequisites
