@@ -109,6 +109,8 @@ export function closeDB() {
  */
 export function getAllPlatforms() {
   const db = getDB();
+  const densitySafe = parseFloat(process.env.DENSITY_SAFE || '0.40');
+  const densityModerate = parseFloat(process.env.DENSITY_MODERATE || '0.70');
   return db.prepare(`
     SELECT 
       id,
@@ -123,10 +125,7 @@ export function getAllPlatforms() {
       (CAST(count AS REAL) / area) as density
     FROM platforms
     ORDER BY id
-  `).all(
-    process.env.DENSITY_SAFE || 0.40,
-    process.env.DENSITY_MODERATE || 0.70
-  );
+  `).all(densitySafe, densityModerate);
 }
 
 /**
@@ -134,6 +133,8 @@ export function getAllPlatforms() {
  */
 export function getPlatformById(id) {
   const db = getDB();
+  const densitySafe = parseFloat(process.env.DENSITY_SAFE || '0.40');
+  const densityModerate = parseFloat(process.env.DENSITY_MODERATE || '0.70');
   return db.prepare(`
     SELECT 
       id,
@@ -148,11 +149,7 @@ export function getPlatformById(id) {
       (CAST(count AS REAL) / area) as density
     FROM platforms
     WHERE id = ?
-  `).get(
-    id,
-    process.env.DENSITY_SAFE || 0.40,
-    process.env.DENSITY_MODERATE || 0.70
-  );
+  `).get(densitySafe, densityModerate, id);
 }
 
 /**
@@ -160,11 +157,17 @@ export function getPlatformById(id) {
  */
 export function updatePlatformCount(id, delta) {
   const db = getDB();
+  // Get current count first
+  const platform = db.prepare('SELECT count FROM platforms WHERE id = ?').get(id);
+  if (!platform) {
+    return false;
+  }
+  const newCount = Math.max(0, platform.count + delta);
   const result = db.prepare(`
     UPDATE platforms 
-    SET count = MAX(0, count + ?), updated_at = CURRENT_TIMESTAMP
+    SET count = ?, updated_at = CURRENT_TIMESTAMP
     WHERE id = ?
-  `).run(delta, id);
+  `).run(newCount, id);
   
   return result.changes > 0;
 }

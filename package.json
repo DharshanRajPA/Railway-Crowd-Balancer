@@ -1,0 +1,28 @@
+{
+  "name": "railway-crowd-balancer",
+  "version": "1.0.0",
+  "description": "Smart Indian Railway Platform Crowd Balancer",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "seed": "cd backend && npm run seed",
+    "reset-db": "cd backend && node -e \"const fs=require('fs');try{fs.unlinkSync('db.sqlite')}catch(e){}\" && npm run seed || cd backend && npm run seed",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:backend": "cd backend && npm start",
+    "start:frontend": "cd frontend && npm run preview"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+
