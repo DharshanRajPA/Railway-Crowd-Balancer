@@ -9,15 +9,15 @@ const debounceMap = new Map();
  * Process sensor event with debouncing
  * Returns { processed: boolean, reason?: string }
  */
-export function processSensorEvent(platformId, sensor, event, timestamp, isSimulation = false) {
+export function processSensorEvent(platformId, sensor, event, timestamp) {
   const db = getDB();
   const now = timestamp ? new Date(timestamp).getTime() : Date.now();
   
-  // Debounce check - bypass if simulation
+  // Debounce check
   const key = `${platformId}_${sensor}`;
   const lastEvent = debounceMap.get(key);
   
-  if (!isSimulation && lastEvent && (now - lastEvent) < DEBOUNCE_MS) {
+  if (lastEvent && (now - lastEvent) < DEBOUNCE_MS) {
     return { processed: false, reason: 'debounced' };
   }
   

@@ -32,10 +32,6 @@ export function emit(event, data) {
     console.warn('[Socket.io] Cannot emit: Socket.io not initialized');
     return;
   }
-  
-  // #region agent log
-  fetch('http://127.0.0.1:7242/ingest/29840694-9044-4d03-9b89-358de3fe5abe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'realtime.js:emit',message:'Emitting socket event',data:{event,dataCount:Object.keys(data||{}).length},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
-  // #endregion
 
   io.emit(event, data);
 }

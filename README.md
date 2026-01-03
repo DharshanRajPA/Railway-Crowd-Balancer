@@ -17,7 +17,16 @@ A real-time crowd density monitoring and redirection system for Indian railway p
 
 2. **Set up environment variables:**
    ```bash
-   cp .env.example .env
+   # macOS/Linux (bash/zsh)
+   cp env.example .env
+   ```
+   **Windows PowerShell:**
+   ```powershell
+   Copy-Item env.example .env
+   ```
+   **Windows CMD:**
+   ```bat
+   copy env.example .env
    ```
    Edit `.env` if needed (defaults work for local demo).
 
@@ -240,7 +249,7 @@ VITE_BACKEND_URL=https://your-backend-ngrok-url
 ```
 /
 ├── README.md                 # This file
-├── .env.example              # Environment variables template
+├── env.example               # Environment variables template (copy to `.env`)
 ├── package.json              # Root package.json with workspaces
 ├── backend/
 │   ├── server.js            # Express + Socket.io entry point
