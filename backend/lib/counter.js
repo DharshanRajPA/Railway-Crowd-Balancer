@@ -9,22 +9,15 @@ const debounceMap = new Map();
  * Process sensor event with debouncing
  * Returns { processed: boolean, reason?: string }
  */
-export function processSensorEvent(platformId, sensor, event, timestamp) {
-  // #region agent log
-  fetch('http://127.0.0.1:7242/ingest/29840694-9044-4d03-9b89-358de3fe5abe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'counter.js:processSensorEvent',message:'Sensor event received',data:{platformId,sensor,event,timestamp},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-  // #endregion
-
+export function processSensorEvent(platformId, sensor, event, timestamp, isSimulation = false) {
   const db = getDB();
   const now = timestamp ? new Date(timestamp).getTime() : Date.now();
   
-  // Debounce check
+  // Debounce check - bypass if simulation
   const key = `${platformId}_${sensor}`;
   const lastEvent = debounceMap.get(key);
   
-  if (lastEvent && (now - lastEvent) < DEBOUNCE_MS) {
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/29840694-9044-4d03-9b89-358de3fe5abe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'counter.js:processSensorEvent',message:'Event debounced',data:{platformId,sensor,debounceMs:now-lastEvent},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-    // #endregion
+  if (!isSimulation && lastEvent && (now - lastEvent) < DEBOUNCE_MS) {
     return { processed: false, reason: 'debounced' };
   }
   
@@ -42,17 +35,8 @@ export function processSensorEvent(platformId, sensor, event, timestamp) {
     delta = -1;
   }
   
-  // #region agent log
-  fetch('http://127.0.0.1:7242/ingest/29840694-9044-4d03-9b89-358de3fe5abe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'counter.js:processSensorEvent',message:'Processing count delta',data:{platformId,delta},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-  // #endregion
-  
   if (delta !== 0) {
     const updated = updatePlatformCount(platformId, delta);
-    
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/29840694-9044-4d03-9b89-358de3fe5abe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'counter.js:processSensorEvent',message:'Count updated',data:{platformId,delta,updated},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-    // #endregion
-    
     return { processed: true, delta, updated };
   }
   

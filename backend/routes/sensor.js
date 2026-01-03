@@ -67,7 +67,8 @@ router.post('/sensor', (req, res) => {
     }
     
     // Process sensor event
-    const result = processSensorEvent(platformId, sensor, event, ts);
+    const { isSimulation } = req.body;
+    const result = processSensorEvent(platformId, sensor, event, ts, !!isSimulation);
     
     if (!result.processed) {
       return res.status(200).json({

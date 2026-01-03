@@ -31,7 +31,7 @@ export const api = {
   /**
    * Submit sensor event
    */
-  async submitSensorEvent(platformId, sensor, event, ts = null) {
+  async submitSensorEvent(platformId, sensor, event, ts = null, isSimulation = false) {
     const response = await fetch(`${BACKEND_URL}/api/sensor`, {
       method: 'POST',
       headers: {
@@ -41,7 +41,8 @@ export const api = {
         platformId,
         sensor,
         event,
-        ts: ts || new Date().toISOString()
+        ts: ts || new Date().toISOString(),
+        isSimulation
       })
     });
     
@@ -60,7 +61,7 @@ export const api = {
     const promises = [];
     for (let i = 0; i < count; i++) {
       promises.push(
-        this.submitSensorEvent(platformId, 'entry', 'break')
+        this.submitSensorEvent(platformId, 'entry', 'break', null, true)
       );
     }
     return Promise.all(promises);
@@ -73,7 +74,7 @@ export const api = {
     const promises = [];
     for (let i = 0; i < count; i++) {
       promises.push(
-        this.submitSensorEvent(platformId, 'exit', 'break')
+        this.submitSensorEvent(platformId, 'exit', 'break', null, true)
       );
     }
     return Promise.all(promises);
