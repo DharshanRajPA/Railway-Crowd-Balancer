@@ -1,0 +1,139 @@
+================================================================================
+  RAILWAY CROWD BALANCER - QUICK START GUIDE
+================================================================================
+
+FOR COMPLETE BEGINNERS - FOLLOW THESE STEPS EXACTLY
+
+================================================================================
+STEP 1: INSTALL NODE.JS (Do This First!)
+================================================================================
+
+1. Open your web browser
+2. Go to: https://nodejs.org/
+3. Click the big green "LTS" button
+4. Install it (click Next, Next, Install - use defaults)
+5. Restart your computer
+6. Open Command Prompt (Windows Key + R, type "cmd", press Enter)
+7. Type: node --version
+8. Press Enter
+9. You should see: v18.x.x or v20.x.x
+
+If you see an error, Node.js didn't install correctly. Try again.
+
+================================================================================
+STEP 2: INSTALL PROJECT DEPENDENCIES
+================================================================================
+
+OPTION A - EASY WAY (Recommended):
+----------------------------------
+1. Go to project folder in File Explorer
+2. Double-click: setup.bat
+3. Wait 3-5 minutes
+4. When it says "Setup Complete!", you're done!
+
+OPTION B - MANUAL WAY:
+----------------------
+Open Command Prompt and run these commands ONE BY ONE:
+
+cd "C:\Dharshan Raj P A\College\Projects\Pervasive\Railway-Crowd-Balancer"
+npm install
+cd backend
+npm install
+cd ..
+cd frontend
+npm install
+cd ..
+npm run seed
+
+================================================================================
+STEP 3: START THE APPLICATION
+================================================================================
+
+OPTION A - EASY WAY:
+--------------------
+1. Double-click: start.bat
+2. Keep the window open!
+
+OPTION B - MANUAL WAY:
+----------------------
+In Command Prompt, type:
+
+npm run dev
+
+Press Enter. Keep the window open!
+
+You should see:
+- [Server] Server running on port 3001
+- Local: http://localhost:5173
+
+================================================================================
+STEP 4: OPEN IN BROWSER
+================================================================================
+
+1. Open your web browser
+2. Type in address bar: http://localhost:5173
+3. Press Enter
+
+You should see the Railway Crowd Balancer dashboard!
+
+================================================================================
+STEP 5: TEST IT WORKS
+================================================================================
+
+1. Click "+ 10 Entries" on Platform 1
+2. Watch the count increase
+3. Keep clicking until density > 70%
+4. Watch for red banner: "Platform 1 overcrowded!"
+5. Click "- 8 Exits" multiple times
+6. Watch the red banner disappear
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+Problem: "node is not recognized"
+Solution: Install Node.js from https://nodejs.org/
+
+Problem: "Port already in use"
+Solution: Close other programs or restart computer
+
+Problem: "Cannot find module"
+Solution: Run "npm install" again in each folder
+
+Problem: Browser shows blank page
+Solution: 
+- Make sure servers are running (check Command Prompt)
+- Make sure URL is: http://localhost:5173 (not https)
+- Try refreshing (F5)
+
+Problem: Database errors
+Solution:
+- Delete backend\db.sqlite file
+- Run "npm run seed" again
+
+================================================================================
+IMPORTANT COMMANDS
+================================================================================
+
+Install everything:
+  npm install
+  cd backend && npm install && cd ..
+  cd frontend && npm install && cd ..
+
+Create database:
+  npm run seed
+
+Start application:
+  npm run dev
+
+Stop application:
+  Press Ctrl+C in Command Prompt
+
+================================================================================
+NEED MORE HELP?
+================================================================================
+
+Read: SETUP_GUIDE.md (detailed guide)
+Read: README.md (technical documentation)
+
+================================================================================
